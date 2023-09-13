@@ -10,7 +10,7 @@ export default function Card({cat_name, cat_breed}) {
         const response = await axios.get("https://catcards.onrender.com/api/v1/catCards")
         setCatCards(response.data)
     }, [])
-
+    //
     console.log(catCards)
 
     if (catCards) {return (
