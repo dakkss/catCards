@@ -26,6 +26,6 @@ app.post('/api/v1/catCards', async (req, res) => {
 })
 
 const PORT = 8080 || 8081
-  app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)
 }) 
