@@ -6,14 +6,11 @@ export default function Card({cat_name, cat_breed}) {
 
     const [catCards, setCatCards] = useState()
 
-    // useEffect(async () => {
-    //     const response = await axios.get("http://localhost:8080/api/v1/catCards")
-    //     setCatCards(response.data)
-    // }, [])
+
 
     useEffect(() => {
         async function fetchData() {
-            const response = await axios.get("http://localhost:8080/api/v1/catCards")
+            const response = await axios.get("https://catcards.onrender.com/api/v1/catCards")
             setCatCards(response.data)
         }
         fetchData();
