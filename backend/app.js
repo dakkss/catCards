@@ -1,47 +1,31 @@
-const express = require("express")
-const dotenv = require("dotenv")
-const cors = require("cors")
-const db = require("./db/db.js")
+import express from "express"
+import cors from "cors"
+import { PrismaClient } from "@prisma/client"
 
-dotenv.config({path:'.env'})
-
+const prisma = new PrismaClient()
 const app = express()
 app.use(cors())
 app.use(express.json())
 
-app.get("/api/v1/catCards", async (req, res) => {
-    try {
-        const results = await db.query("SELECT * FROM catcards ORDER BY cat_id ASC");
-        res.status(200).json({
-            status: "Success",
-            results: results.rows.length,
-            data: {
-                catcards: results.rows
-            },
-        })
-        console.log(results.rows)
-    } catch (err) {
-        console.error(err)
-    }
-}) 
-
-app.post('/api/v1/catCards', async (req, res) => {
-    try {
-        const results = await db.query(
-            "INSERT INTO catcards (cat_name, cat_breed) values ($1, $2)", [req.body.cat_name, req.body.cat_breed]
-        )
-        res.status(201).json({
-            status : "Success",
-            data: {
-                catcards: results.rows
-            }
-        })
-        console.log(results)
-    } catch (err) {
-        console.error(err)
-    }
+app.get('/api/v1/catCards', async (req, res) => {
+  const cards = await prisma.catCard.findMany()
+  res.json(cards)
 })
 
-const PORT = process.env.PORT || 8081 
+app.post('/api/v1/catCards', async (req, res) => {
+  try {
+    const cardData = req.body
+    console.log(cardData)
+    const newCard = await prisma.catCard.create({
+      data: cardData
+    })
+    res.json(newCard)
+  } catch (err) {
+    console.log(err)
+  }
+})
 
-app.listen(PORT, console.log(`Server started on port ${PORT}`))    
+const PORT = 8080 || 8081
+  app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`)
+}) 
