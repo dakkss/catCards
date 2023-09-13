@@ -21,7 +21,7 @@ export default function Card({ cat_name, cat_breed }) {
         return (
             <div className="flex flex-row flex-wrap justify-center items-center">
                 {catCards.map(card => (
-                    <div key={card.cat_id} className="border-2 mx-5 my-8 w-48  hover:shadow-xl">
+                    <div key={card.cat_id} className="border-2 mx-5 my-8 w-40 hover:shadow-xl">
                         <div className="flex justify-center items-center p-5">
                             <h1>IMAGE HERE</h1>
                         </div>
