@@ -19,6 +19,9 @@ app.post('/api/v1/catCards', async (req, res) => {
     const newCard = await prisma.catCard.create({
       data: cardData
     })
+    await prisma.catCard.update({
+      
+    })
     res.json(newCard)
   } catch (err) {
     console.log(err)
